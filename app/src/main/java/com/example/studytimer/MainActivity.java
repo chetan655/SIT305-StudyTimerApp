@@ -172,13 +172,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putDouble(TIME,time);
-        outState.putBoolean(IS_RUNNING,isRunning);
         outState.putBoolean(IS_PAUSED,isPaused);
         outState.putString(USER_INFO_TEXT,userInfoText.getText().toString());
         if(!TextUtils.isEmpty(taskNameText.getText().toString())){
             outState.putString(TASK_NAME,taskNameText.getText().toString());
         }
+        outState.putBoolean(IS_RUNNING,isRunning);
+        outState.putDouble(TIME,time);
     }
 
 }
