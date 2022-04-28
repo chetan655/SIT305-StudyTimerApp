@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         timer = new Timer();
         sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
-        checkSharedPreferences();
-
+        sharedPreferencesChecker();
 
         if (savedInstanceState!=null){
             time=savedInstanceState.getDouble(TIME);
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             isRunning = false;
             isPaused = false;
             time = 00.00;
-            timerText.setText(formattedString(0,0,0));
+            timerText.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0) + ":" + String.format("%02d", 0));
         }
     }
 
@@ -138,12 +137,12 @@ public class MainActivity extends AppCompatActivity {
         int minutes = ((roundOff % 86400) % 3600) / 60;
         int seconds = ((roundOff % 86400) % 3600) % 60;
 
-        return formattedString(hours, minutes, seconds);
+        return String.format("%02d", hours) + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds);
     }
 
-    private String formattedString(int hours, int minutes, int seconds){ return String.format("%02d", hours) + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds); }
+    // private String formattedString(int hours, int minutes, int seconds){ return String.format("%02d", hours) + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds); }
 
-    private void checkSharedPreferences() {
+    private void sharedPreferencesChecker() {
         if(sharedPreferences != null){
             String text = sharedPreferences.getString(infoText,"You spent 00:00 on ... last time.");
             userInfoText.setText(text);}
