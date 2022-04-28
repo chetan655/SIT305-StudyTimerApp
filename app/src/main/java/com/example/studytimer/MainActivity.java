@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     Timer timer;
     TimerTask timertask;
-    Double time = 00.00;
+    Double time = 0.0;
 
     SharedPreferences sharedPreferences;
 
@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState!=null){
-            time=savedInstanceState.getDouble("time");
-            isRunning=savedInstanceState.getBoolean("isRunning");
-            isPaused = savedInstanceState.getBoolean("isPaused");
-            userInfoText.setText(savedInstanceState.getString("userInfoText"));
-            taskNameText.setText(savedInstanceState.getString("taskName"));
+            time=savedInstanceState.getDouble(TIME);
+            isRunning=savedInstanceState.getBoolean(IS_RUNNING);
+            isPaused = savedInstanceState.getBoolean(IS_PAUSED);
+            userInfoText.setText(savedInstanceState.getString(USER_INFO_TEXT));
+            taskNameText.setText(savedInstanceState.getString(TASK_NAME));
 
             if(isRunning) {
                 startTimer();
@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Please Enter Task Name", Toast.LENGTH_SHORT).show();
             }
             else {
+                isRunning = true;
+                isPaused = false;
                 startTimer();
                 Toast.makeText(MainActivity.this, "Timer Started", Toast.LENGTH_SHORT).show();
             }
@@ -89,22 +91,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startTimer(){
-        if (!isRunning){
-            isRunning = true;
-            timertask = new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            time++;
-                            timerText.setText(getTime());
-                        }
-                    });
-                }
-            };timer.scheduleAtFixedRate(timertask, 0, 1000);
-            //timer.schedule(timertask,0,1000);
-        }
+        //isRunning = true;
+        timertask = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(() -> {
+                    time++;
+                    timerText.setText(getTime());
+                });
+            }
+        };timer.scheduleAtFixedRate(timertask, 0, 1000);
     }
 
     private void pauseTimer(){
@@ -156,12 +152,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putDouble("time",time);
-        outState.putBoolean("isRunning",isRunning);
-        outState.putBoolean("isPaused",isPaused);
-        outState.putString("userInfoText",userInfoText.getText().toString());
+        outState.putDouble(TIME,time);
+        outState.putBoolean(IS_RUNNING,isRunning);
+        outState.putBoolean(IS_PAUSED,isPaused);
+        outState.putString(USER_INFO_TEXT,userInfoText.getText().toString());
         if(!TextUtils.isEmpty(taskNameText.getText().toString())){
-            outState.putString("taskName",taskNameText.getText().toString());
+            outState.putString(TASK_NAME,taskNameText.getText().toString());
         }
     }
 

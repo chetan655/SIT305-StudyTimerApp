@@ -25,8 +25,10 @@
             android:layout_margin="18dp"
             android:adjustViewBounds="true"
             android:backgroundTint="#FFFFFF"
+            android:contentDescription="@string/Timer_Pause_Button"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/pause" />
+            app:srcCompat="@drawable/pause"
+            tools:ignore="ImageContrastCheck" />
 
         <ImageButton
             android:id="@+id/playButton"
@@ -36,7 +38,8 @@
             android:adjustViewBounds="true"
             android:backgroundTint="#FFFFFF"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/play" />
+            app:srcCompat="@drawable/play"
+            android:contentDescription="@string/Timer_Play_Button"/>
 
         <ImageButton
             android:id="@+id/stopButton"
@@ -46,7 +49,8 @@
             android:adjustViewBounds="true"
             android:backgroundTint="#FFFFFF"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/stop" />
+            app:srcCompat="@drawable/stop"
+            android:contentDescription="@string/Timer_Stop_Button"/>
     </LinearLayout>
 
     <TextView
@@ -72,7 +76,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="text"
-        android:text="00:00:00"
+        android:text="@string/Initial_Time_Stamp"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -87,9 +91,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Enter Your Task"
         android:gravity="center"
+        android:hint="@string/Task_Name_Hint"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
