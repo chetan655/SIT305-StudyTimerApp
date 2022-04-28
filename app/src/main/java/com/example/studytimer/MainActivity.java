@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
     private void startTimer(){
         //isRunning = true;
         timertask = new TimerTask() {
+
             @Override
             public void run() {
                 runOnUiThread(() -> {
@@ -100,10 +101,29 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };timer.scheduleAtFixedRate(timertask, 0, 1000);
+
+/*        if(TextUtils.isEmpty(userInfoText.getText().toString())){
+            sharedPreferences.edit().putString(infoText,"You spent 00:00 on ___ last time.").apply();
+        }
+        else{
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(infoText,String.format("You spent %s on %s last time.",getTime(),taskNameText.getText().toString()));
+            editor.apply();
+        }*/
     }
 
     private void pauseTimer(){
         if (isRunning){
+
+            /*if(TextUtils.isEmpty(userInfoText.getText().toString())){
+                sharedPreferences.edit().putString(infoText,"You spent 00:00 on ___ last time.").apply();
+            }
+            else{
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(infoText,String.format("You spent %s on %s last time.",getTime(),taskNameText.getText().toString()));
+                editor.apply();
+            }*/
+
             timertask.cancel();
             isRunning = false;
             isPaused = true;
@@ -115,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             timertask.cancel();
 
             if(TextUtils.isEmpty(userInfoText.getText().toString())){
-                sharedPreferences.edit().putString(infoText,"You spent 00:00 on ... last time.").apply();
+                sharedPreferences.edit().putString(infoText,"You spent 00:00 on ___ last time.").apply();
             }
             else{
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -125,11 +145,12 @@ public class MainActivity extends AppCompatActivity {
 
             isRunning = false;
             isPaused = false;
-            time = 00.00;
+            time = 0.0;
             timerText.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0) + ":" + String.format("%02d", 0));
         }
     }
 
+    @NonNull
     private String getTime() {
         int roundOff = (int) Math.round(time);
 
@@ -144,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void sharedPreferencesChecker() {
         if(sharedPreferences != null){
-            String text = sharedPreferences.getString(infoText,"You spent 00:00 on ... last time.");
+            String text = sharedPreferences.getString(infoText,"You spent 00:00 on ___ last time.");
             userInfoText.setText(text);}
     }
 
